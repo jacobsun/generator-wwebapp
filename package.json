@@ -1,0 +1,29 @@
+{
+  "name": "generator-wwebapp",
+  "version": "1.0.0",
+  "description": "Scaffold out a webpack-based front-end web app",
+  "main": "app/index.js",
+  "scripts": {
+    "lint": "npx eslint ./app/**/*.js --fix",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [
+    "generators"
+  ],
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "author": "jacob.sun.meta@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "mkdirp": "^1.0.4",
+    "yeoman-generator": "^4.12.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.22.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.3.1"
+  }
+}
