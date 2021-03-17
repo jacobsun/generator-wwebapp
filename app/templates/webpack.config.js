@@ -8,6 +8,22 @@ const PRODUCTION_ASSETS_URL = '/'
 
 const publicPath = () => process.env.mode === 'production' ? PRODUCTION_ASSETS_URL : '/'
 
+const cssLoaders = [
+  process.env.mode === 'development'
+    ? 'style-loader'
+    : {
+        loader: MiniCssExtractPlugin.loader,
+        options: { publicPath: publicPath() }
+      },
+  'css-loader',
+  {
+    loader: "postcss-loader",
+    options: {
+      postcssOptions: { plugins: [ [ "autoprefixer"] ] }
+    }
+  },
+]
+
 const config = {
   mode: process.env.mode,
 
@@ -38,19 +54,11 @@ const config = {
 
   module: {
     rules: [
-      { test: /\.(png|svg|jpg|jpeg|gif|mp4|webp)$/i, type: 'asset/resource' },
+      { test: /\.(png|svg|jpg|jpeg|gif|mp4|webp)$/i, type: 'asset' },
       {
         test: /\.less$/i,
         use: [
-          process.env.mode === 'development'
-            ? 'style-loader'
-            : {
-                loader: MiniCssExtractPlugin.loader,
-                options: { publicPath: publicPath() }
-              },
-
-          'css-loader',
-          'postcss-loader',
+          ...cssLoaders,
           {
             loader: 'less-loader',
             options: { lessOptions: { strictMath: true } }
@@ -59,16 +67,7 @@ const config = {
       },
       {
         test: /\.css$/i,
-        use: [
-          process.env.mode === 'development'
-            ? 'style-loader'
-            : {
-                loader: MiniCssExtractPlugin.loader,
-                options: { publicPath: publicPath() }
-              },
-          'css-loader',
-          'postcss-loader'
-        ]
+        use: cssLoaders
       }
     ]
   },
